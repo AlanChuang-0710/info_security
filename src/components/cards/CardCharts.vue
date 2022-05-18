@@ -291,6 +291,7 @@ export default {
       line_chart: null,
       line_chart_2: null,
       bar_chart: null,
+      model: 'dark'
     };
   },
   methods: {
