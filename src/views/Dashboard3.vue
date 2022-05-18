@@ -37,7 +37,7 @@ const gaugeData = [
 ];
 import CardSocial from "@/components/cards/CardSocial";
 export default {
-  name: "Dashboard2",
+  name: "Dashboard3",
   components: {
     CardSocial,
   },
@@ -712,22 +712,22 @@ export default {
     init() {
       let salesChart = document.getElementById("saleschart");
       this.$echarts.dispose(salesChart);
-      this.sales_chart = this.$echarts.init(salesChart, "light");
+      this.sales_chart = this.$echarts.init(salesChart, "dark");
       this.sales_chart.setOption(this.sales_options);
 
       let piechart = document.getElementById("piechart");
       this.$echarts.dispose(piechart);
-      this.pie_chart = this.$echarts.init(piechart, "light");
+      this.pie_chart = this.$echarts.init(piechart, "dark");
       this.pie_chart.setOption(this.pie_options);
 
       let areachart = document.getElementById("areachart");
       this.$echarts.dispose(areachart);
-      this.area_chart = this.$echarts.init(areachart, "light");
+      this.area_chart = this.$echarts.init(areachart, "dark");
       this.area_chart.setOption(this.area_options);
 
       let mixchart = document.getElementById("mixchart");
       this.$echarts.dispose(mixchart);
-      this.mix_chart = this.$echarts.init(mixchart, "light");
+      this.mix_chart = this.$echarts.init(mixchart, "dark");
       this.mix_chart.setOption(this.mix_options);
       this.mix_chart.on("updateAxisPointer", (event) => {
         console.log("update event ....");
@@ -753,28 +753,28 @@ export default {
 
       let lineBarChart = document.getElementById("lineBarChart");
       this.$echarts.dispose(lineBarChart);
-      this.line_bar_chart = this.$echarts.init(lineBarChart, "light");
+      this.line_bar_chart = this.$echarts.init(lineBarChart, "dark");
       this.line_bar_chart.setOption(this.line_bar_options);
 
       let radarchart = document.getElementById("radarchart");
       this.$echarts.dispose(radarchart);
-      this.radar_chart = this.$echarts.init(radarchart, "light");
+      this.radar_chart = this.$echarts.init(radarchart, "dark");
       this.radar_chart.setOption(this.radar_options);
 
       let gaugechart = document.getElementById("gaugechart");
       this.$echarts.dispose(gaugechart);
-      this.gauge_chart = this.$echarts.init(gaugechart, "light");
+      this.gauge_chart = this.$echarts.init(gaugechart, "dark");
       this.gauge_chart.setOption(this.gauge_options);
 
       let gaugeRingchart = document.getElementById("gaugeRingchart");
       this.$echarts.dispose(gaugeRingchart);
-      this.gaugeRing_chart = this.$echarts.init(gaugeRingchart, "light");
+      this.gaugeRing_chart = this.$echarts.init(gaugeRingchart, "dark");
       this.gaugeRing_chart.setOption(this.gaugeRing_options);
       this.dancing(this.gaugeRing_chart);
 
       let graphLabelChart = document.getElementById("graphLabelChart");
       this.$echarts.dispose(graphLabelChart);
-      this.graphLabel_chart = this.$echarts.init(graphLabelChart, "light");
+      this.graphLabel_chart = this.$echarts.init(graphLabelChart, "dark");
       this.getGraphLabelChart();
     },
     getGraphLabelChart() {
@@ -880,11 +880,11 @@ export default {
 };
 </script>
 <template>
-  <div>
+  <div style="background-color: #110c2a;">
     <q-page class="q-pa-sm">
       <card-social icon_position="right" />
 
-      <q-card class="q-mt-sm">
+      <q-card class="q-mt-sm" style="background-color: #110c2a;">
         <q-card-section class="text-h6 q-pb-none">
           <q-item>
             <q-item-section avatar class="">
@@ -892,7 +892,7 @@ export default {
             </q-item-section>
 
             <q-item-section>
-              <div class="text-h6">Product Sales Stats</div>
+              <div class="text-h6 text-white">Product Sales Stats</div>
             </q-item-section>
           </q-item>
         </q-card-section>
@@ -912,7 +912,7 @@ export default {
                     <q-item-label class="text-h6 text-blue text-bold"
                       >4321</q-item-label
                     >
-                    <q-item-label caption>Fashions</q-item-label>
+                    <q-item-label caption class="text-white">Fashions</q-item-label>
                   </q-item-section>
                 </q-item>
               </div>
@@ -926,10 +926,10 @@ export default {
                     />
                   </q-item-section>
                   <q-item-section>
-                    <q-item-label class="text-h6 text-grey-8 text-bold"
+                    <q-item-label class="text-h6 text-grey-1 text-bold"
                       >9876</q-item-label
                     >
-                    <q-item-label caption>Electronics</q-item-label>
+                    <q-item-label caption class="text-white">Electronics</q-item-label>
                   </q-item-section>
                 </q-item>
               </div>
@@ -946,7 +946,7 @@ export default {
                     <q-item-label class="text-h6 text-green-6 text-bold"
                       >345</q-item-label
                     >
-                    <q-item-label caption>Toys</q-item-label>
+                    <q-item-label caption class="text-white">Toys</q-item-label>
                   </q-item-section>
                 </q-item>
               </div>
@@ -963,7 +963,7 @@ export default {
                     <q-item-label class="text-h6 text-orange-8 text-bold"
                       >1021</q-item-label
                     >
-                    <q-item-label caption>Vouchers</q-item-label>
+                    <q-item-label caption class="text-white">Vouchers</q-item-label>
                   </q-item-section>
                 </q-item>
               </div>
@@ -992,7 +992,7 @@ export default {
               </q-item-section>
 
               <q-item-section>
-                <div class="text-h6 q-mb-sm">TODAY SALES</div>
+                <div class="text-h6 text-white q-mb-sm">TODAY SALES</div>
               </q-item-section>
             </q-item>
             <div>
