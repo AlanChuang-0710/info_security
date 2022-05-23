@@ -17,7 +17,7 @@ export default {
 };
 </script>
 <template>
-  <div style="background-`color: #363636">
+  <div style="background-color: #363636;">
     <q-page class="q-pa-sm">
       <card-msg></card-msg>
       <card-list></card-list>
