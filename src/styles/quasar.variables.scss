@@ -21,6 +21,7 @@ $warning   : #F2C037;
 
 $laleComplementaryYallow: #F4EA77;
 $laleComplementaryOrange: #DF992D;
+$body-font-size: 14px;
 
 .bg-secondary{
     background-color: $secondary;
@@ -35,12 +36,19 @@ $laleComplementaryOrange: #DF992D;
     background-color: $positive;
 }
 
+//字型大小定義
 
+.fz-xl {
+    font-size: $body-font-size * 1.714; //24px
+}
+.fz-larger {
+    font-size: $body-font-size * 1.285; //18px
+}
+.fz-normal {
+    font-size: $body-font-size * 1.142; //16px
+}
+.fz-sml {
+    font-size: $body-font-size; //14px
+}
 
-.bg-lale-comple-yallow{
-    background-color: $laleComplementaryYallow;
-}
-.bg-lale-comple-orange{
-    background-color: $laleComplementaryOrange;
-}
 @import '~quasar-variables-styl'

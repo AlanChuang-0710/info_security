@@ -898,7 +898,6 @@ export default {
 };
 </script>
 <template>
-  <!-- #110c2a -->
   <div style="background-color: #363636">
     <q-page class="q-pa-sm">
       <card-social icon_position="right" />
