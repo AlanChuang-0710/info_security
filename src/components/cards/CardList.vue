@@ -97,7 +97,7 @@ export default {
                       <div class="ellipsis" style="width: 60%; color: #9adcfa">
                         {{ ele.title }}
                       </div>
-                      <div style="width: 35%" class="text-right">
+                      <div style="width: 35%" class="text-left q-pl-md">
                         <div
                           class="circle"
                           :style="`background-color: ${ele.color}`"
