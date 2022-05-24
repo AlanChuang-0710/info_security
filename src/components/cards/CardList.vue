@@ -12,16 +12,19 @@ export default {
               title: "Some mail sampleSome mail sample",
               status: "Critical",
               color: "red",
+              isShow: truea
             },
             {
               title: "Alert mail sampleSome mail sample",
               status: "Medium",
               color: "orange",
+              isShow: truea
             },
             {
               title: "Pass mail sampleSome mail sample",
               status: "Low",
               color: "green",
+              isShow: truea
             },
           ],
         },
@@ -33,16 +36,19 @@ export default {
               title: "Some mail sampleSome mail sample",
               status: "Critical",
               color: "red",
+              isShow: false
             },
             {
               title: "Alert mail sampleSome mail sample",
               status: "Medium",
               color: "orange",
+              isShow: false
             },
             {
               title: "Pass mail sampleSome mail sample",
               status: "Low",
               color: "green",
+              isShow: false
             },
           ],
         },
@@ -54,16 +60,19 @@ export default {
               title: "Some mail sampleSome mail sample",
               status: "Critical",
               color: "red",
+              isShow: true
             },
             {
               title: "Alert mail sampleSome mail sample",
               status: "Medium",
               color: "orange",
+              isShow: true
             },
             {
               title: "Pass mail sampleSome mail sample",
               status: "Low",
               color: "green",
+              isShow: true
             },
           ],
         },
@@ -99,6 +108,7 @@ export default {
                       </div>
                       <div style="width: 35%" class="text-left q-pl-md">
                         <div
+                          v-if="ele.isShow"
                           class="circle"
                           :style="`background-color: ${ele.color}`"
                         ></div>
