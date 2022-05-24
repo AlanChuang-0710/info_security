@@ -93,7 +93,7 @@ export default {
             :key="index"
             class="col-lg-4 col-sm-12 col-xs-12 col-md-4"
           >
-            <q-item class="relative-position" style="background-color: #363636">
+            <q-item class="relative-position" style="background-color: #4d4d4d">
               <div class="absolute" style="top: 3px; right: 10px">
                 <q-icon color="white" name="more_vert" />
               </div>

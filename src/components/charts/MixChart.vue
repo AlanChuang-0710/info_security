@@ -13,11 +13,12 @@ export default {
         },
         dataset: {
           source: [
-            ["product", "2012", "2013", "2014", "2015", "2016", "2017"],
-            ["Milk Tea", 56.5, 82.1, 88.7, 70.1, 53.4, 85.1],
-            ["Matcha Latte", 51.1, 51.4, 55.1, 53.3, 73.8, 68.7],
-            ["Cheese Cocoa", 40.1, 62.2, 69.5, 36.4, 45.2, 32.5],
-            ["Walnut Brownie", 25.2, 37.1, 41.2, 18, 33.9, 49.1],
+            ["product", "5/20", "5/21", "5/22", "5/23", "5/24", "5/25"],
+            ["Critical", 56.5, 82.1, 88.7, 70.1, 53.4, 85.1],
+            ["High", 51.1, 51.4, 55.1, 53.3, 73.8, 68.7],
+            ["Medium", 40.1, 62.2, 69.5, 36.4, 45.2, 32.5],
+            ["Low", 25.2, 37.1, 41.2, 18, 33.9, 49.1],
+            ["Unknown", 40, 37.1, 41.2, 18, 33.9, 29],
           ],
         },
         xAxis: {
@@ -62,6 +63,12 @@ export default {
             seriesLayoutBy: "row",
             emphasis: { focus: "series" },
           },
+          {
+            type: "line",
+            smooth: true,
+            seriesLayoutBy: "row",
+            emphasis: { focus: "series" },
+          },
           //圓餅圖
           {
             type: "pie",
@@ -71,13 +78,13 @@ export default {
             emphasis: {
               focus: "self",
             },
-            // label: {
-            //   formatter: "{b}: {@2012} ({d}%)",
-            // },
+            label: {
+              // formatter: "{b}: {@2012} ({d}%)",
+            },
             encode: {
               itemName: "product",
-              value: "2012",
-              tooltip: "2012",
+              value: "5/20",
+              tooltip: "5/20",
             },
           },
         ],
@@ -128,12 +135,12 @@ export default {
 </script>
 <template>
   <div>
-    <q-card class="bg-transparent no-shadow no-border q-mt-sm">
+    <q-card class="bg-transparent no-shadow no-border q-mt-lg">
       <q-card-section class="q-pa-none">
         <div class="row q-col-gutter-sm">
-          <div class="col-lg-6 col-sm-12 col-xs-12 col-md-6">
+          <div class="col-lg-12 col-sm-12 col-xs-12 col-md-12">
             <div>
-              <div ref="mixchart" id="mixchart" style="height: 250px"></div>
+              <div ref="mixchart" id="mixchart" style="height: 400px"></div>
             </div>
           </div>
         </div>
