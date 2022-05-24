@@ -12,19 +12,19 @@ export default {
               title: "Some mail sampleSome mail sample",
               status: "Critical",
               color: "red",
-              isShow: truea
+              isShow: true
             },
             {
               title: "Alert mail sampleSome mail sample",
               status: "Medium",
               color: "orange",
-              isShow: truea
+              isShow: true
             },
             {
               title: "Pass mail sampleSome mail sample",
               status: "Low",
               color: "green",
-              isShow: truea
+              isShow: true
             },
           ],
         },
