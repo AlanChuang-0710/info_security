@@ -115,8 +115,8 @@ export default {
       this.chartTemp.setOption(this.optionTemp);
     },
     onResize() {
-      if (this.chart) {
-        this.chart.resize();
+      if (this.chartTemp) {
+        this.chartTemp.resize();
       }
     },
   },
@@ -134,6 +134,7 @@ export default {
         </div>
       </q-card-section>
     </q-card>
+    <q-resize-observer @resize="onResize" />
   </div>
 </template>
 <style lang="scss" scoped>
