@@ -3,6 +3,7 @@ export default {
   name: "CardList",
   data() {
     return {
+      model: false,
       listDetail: [
         {
           title: "Unassigned incidents",
@@ -12,19 +13,19 @@ export default {
               title: "Some mail sampleSome mail sample",
               status: "Critical",
               color: "red",
-              isShow: true
+              isShow: true,
             },
             {
               title: "Alert mail sampleSome mail sample",
               status: "Medium",
               color: "orange",
-              isShow: true
+              isShow: true,
             },
             {
               title: "Pass mail sampleSome mail sample",
               status: "Low",
               color: "green",
-              isShow: true
+              isShow: true,
             },
           ],
         },
@@ -36,19 +37,19 @@ export default {
               title: "Some mail sampleSome mail sample",
               status: "Critical",
               color: "red",
-              isShow: false
+              isShow: false,
             },
             {
               title: "Alert mail sampleSome mail sample",
               status: "Medium",
               color: "orange",
-              isShow: false
+              isShow: false,
             },
             {
               title: "Pass mail sampleSome mail sample",
               status: "Low",
               color: "green",
-              isShow: false
+              isShow: false,
             },
           ],
         },
@@ -60,32 +61,35 @@ export default {
               title: "Some mail sampleSome mail sample",
               status: "Critical",
               color: "red",
-              isShow: true
+              isShow: true,
             },
             {
               title: "Alert mail sampleSome mail sample",
               status: "Medium",
               color: "orange",
-              isShow: true
+              isShow: true,
             },
             {
               title: "Pass mail sampleSome mail sample",
               status: "Low",
               color: "green",
-              isShow: true
+              isShow: true,
             },
           ],
         },
       ],
     };
   },
+  methods: {
+    showModal(e) {
+      this.model = true
+    }
+  },
 };
 </script>
 <template>
   <div>
-    <q-card
-      class="bg-transparent no-shadow no-border q-mt-sm"
-    >
+    <q-card class="bg-transparent no-shadow no-border q-mt-sm">
       <q-card-section class="q-pa-none">
         <div class="row q-col-gutter-sm">
           <div
@@ -103,7 +107,11 @@ export default {
                 <ul>
                   <li v-for="(ele, idx) in item.item" :key="idx">
                     <div class="flex justify-start">
-                      <div class="ellipsis" style="width: 60%; color: #9adcfa">
+                      <div
+                        class="ellipsis cursor-pointer"
+                        style="width: 60%; color: #9adcfa"
+                        @click="showModal"
+                      >
                         {{ ele.title }}
                       </div>
                       <div style="width: 35%" class="text-left q-pl-md">
@@ -123,6 +131,25 @@ export default {
         </div>
       </q-card-section>
     </q-card>
+    <!-- Dialog -->
+    <q-dialog v-model="model">
+      <q-card>
+        <q-card-section>
+          <div class="text-h6">Alert</div>
+        </q-card-section>
+
+        <q-card-section class="q-pt-none">
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Rerum
+          repellendus sit voluptate voluptas eveniet porro. Rerum blanditiis
+          perferendis totam, ea at omnis vel numquam exercitationem aut, natus
+          minima, porro labore.
+        </q-card-section>
+
+        <q-card-actions align="right">
+          <q-btn flat label="OK" color="primary" v-close-popup />
+        </q-card-actions>
+      </q-card>
+    </q-dialog>
   </div>
 </template>
 <style lang="scss" scoped>

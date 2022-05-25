@@ -5,7 +5,13 @@ export default {
     return {
       mix_options: {
         legend: {
-          show: false,
+          show: true,
+          textStyle: {
+            color: "#fff",
+          },
+          // selectorLabel: {
+          //   distance: 5,
+          // },
         },
         tooltip: {
           trigger: "axis",
@@ -73,13 +79,13 @@ export default {
           {
             type: "pie",
             id: "pie",
-            radius: "30%",
+            radius: "33%",
             center: ["50%", "25%"],
             emphasis: {
               focus: "self",
             },
             label: {
-              // formatter: "{b}: {@2012} ({d}%)",
+              formatter: "{b}: ({d})",
             },
             encode: {
               itemName: "product",
@@ -140,13 +146,14 @@ export default {
         <div class="row q-col-gutter-sm">
           <div class="col-lg-12 col-sm-12 col-xs-12 col-md-12">
             <div>
-              <div ref="mixchart" id="mixchart" style="height: 400px"></div>
+              <div ref="mixchart" id="mixchart" style="height: 550px"></div>
             </div>
           </div>
         </div>
       </q-card-section>
     </q-card>
     <q-resize-observer @resize="onResize" />
+    <!-- <div class="text-white">aa</div> -->
   </div>
 </template>
 <style lang="scss" scoped>
