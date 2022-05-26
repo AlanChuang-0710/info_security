@@ -4,6 +4,7 @@ export default {
   data() {
     return {
       mix_options: {
+        color: ['#850f02', '#fd292c', '#ff9210','#35ff47', '#eee'],
         legend: {
           show: true,
           textStyle: {
@@ -20,11 +21,11 @@ export default {
         dataset: {
           source: [
             ["product", "5/20", "5/21", "5/22", "5/23", "5/24", "5/25"],
-            ["Critical", 56.5, 82.1, 88.7, 70.1, 53.4, 85.1],
-            ["High", 51.1, 51.4, 55.1, 53.3, 73.8, 68.7],
-            ["Medium", 40.1, 62.2, 69.5, 36.4, 45.2, 32.5],
-            ["Low", 25.2, 37.1, 41.2, 18, 33.9, 49.1],
-            ["Unknown", 40, 37.1, 41.2, 18, 33.9, 29],
+            ["Critical", 56, 82, 88, 70, 53, 85],
+            ["High", 51, 51, 55, 53, 73, 68],
+            ["Medium", 40, 62, 69, 36, 45, 32],
+            ["Low", 25, 37, 41, 18, 33, 49],
+            ["Unknown", 40, 37, 41, 18, 33, 29],
           ],
         },
         xAxis: {
@@ -85,9 +86,10 @@ export default {
               focus: "self",
             },
             label: {
-              formatter: "{b}: ({d})",
+              formatter: "{b}: ({d}) ",
             },
             encode: {
+              y: 2,
               itemName: "product",
               value: "5/20",
               tooltip: "5/20",
@@ -116,9 +118,9 @@ export default {
           this.mix_chart.setOption({
             series: {
               id: "pie",
-              // label: {
-              //   formatter: "{b}: {@[" + dimension + "]} ({d}%)",
-              // },
+              label: {
+                formatter: "{b}: {@[" + dimension + "]} ({d}%)",
+              },
               encode: {
                 value: dimension,
                 tooltip: dimension,
@@ -153,7 +155,6 @@ export default {
       </q-card-section>
     </q-card>
     <q-resize-observer @resize="onResize" />
-    <!-- <div class="text-white">aa</div> -->
   </div>
 </template>
 <style lang="scss" scoped>
