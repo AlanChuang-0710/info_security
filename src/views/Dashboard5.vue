@@ -39,6 +39,7 @@ export default {
           {
             data: [150, 230, 224, 218],
             type: "line",
+            smooth: true
           },
         ],
       },
@@ -65,6 +66,7 @@ export default {
           {
             data: [50, 135, 88, 140],
             type: "line",
+            smooth: true
           },
         ],
       },
@@ -118,7 +120,7 @@ export default {
                     class="cursor-inherit"
                   />
                   1 critical test was discovered
-                  <div class="text-weight-bold">View</div>
+                  <div class="text-weight-bold cursor-pointer">View</div>
                 </div>
                 <aside class="flex justify-center items-center">
                   <div class="flex items-center q-px-sm">
