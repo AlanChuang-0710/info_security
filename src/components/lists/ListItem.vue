@@ -65,7 +65,7 @@ export default {
         },
         {
           type: "Human",
-          btnColor: "yellow",
+          btnColor: "orange",
           number: 75,
           detail: [
             {

@@ -1,12 +1,76 @@
 <script>
 import ListItem from "@/components/lists/ListItem.vue";
+
+import PieChart from "@/components/charts/PieChart.vue";
+import LineChart from "@/components/charts/LineChart.vue";
+import LineChangeChart from "@/components/charts/LineChangeChart.vue";
+import MapChart from "@/components/charts/MapChart.vue";
 export default {
   name: "",
   components: {
     ListItem,
+    PieChart,
+    LineChart,
+    LineChangeChart,
+    MapChart,
   },
   data() {
-    return {};
+    return {
+      line_options: {
+        color: "#c7c7cb",
+        xAxis: {
+          type: "category",
+          data: ["Mar 07", "Mar 14", "Mar 21", "Mar 28"],
+          axisLine: {
+            lineStyle: {
+              color: "#c7c7cb",
+            },
+          },
+        },
+        yAxis: {
+          type: "value",
+          axisLine: {
+            lineStyle: {
+              color: "#c7c7cb",
+            },
+          },
+        },
+        series: [
+          {
+            data: [150, 230, 224, 218],
+            type: "line",
+          },
+        ],
+      },
+      line_options2: {
+        color: "#c7c7cb",
+        xAxis: {
+          type: "category",
+          data: ["Mar 07", "Mar 14", "Mar 21", "Mar 28"],
+          axisLine: {
+            lineStyle: {
+              color: "#c7c7cb",
+            },
+          },
+        },
+        yAxis: {
+          type: "value",
+          axisLine: {
+            lineStyle: {
+              color: "#c7c7cb",
+            },
+          },
+        },
+        series: [
+          {
+            data: [50, 135, 88, 140],
+            type: "line",
+          },
+        ],
+      },
+      line_chart: null,
+      line_chart2: null,
+    };
   },
 };
 </script>
@@ -23,25 +87,28 @@ export default {
           </q-item-section>
         </q-item>
       </q-list>
-      <q-card class="q-mb-md7" style="background-color: #363636; border: 1px solid pink" >
+      <q-card
+        class="q-mb-md"
+        style="background-color: #363636; box-shadow: none"
+      >
         <q-card-section class="row q-col-gutter-sm">
-          <div class="col-md-8 col-xs-12">
+          <div class="col-md-8 col-xs-12 q-pl-none">
             <div class="intro">BREAKDOWN</div>
             <div class="row">
               <div class="col-md-6 col-12">
-                <div class="text-subtitle1 text-weight-medium">
+                <div class="text-caption text-weight-medium">
                   Cyber Posture Rating
                 </div>
-                <main class="text-white">圓餅圖</main>
+                <pie-chart></pie-chart>
                 <div
                   class="
                     flex
                     justify-between
                     items-center
                     rounded-borders
-                    q-px-sm
+                    q-pa-sm q-mb-md
                   "
-                  style="border: 1px solid #000"
+                  style="border: 1px solid #a19999"
                 >
                   <q-btn
                     round
@@ -55,15 +122,15 @@ export default {
                 </div>
                 <aside class="flex justify-center items-center">
                   <div class="flex items-center q-px-sm">
-                    <div class="circle" style="background-color: red"></div>
+                    <div class="circle" style="background-color: #5470c6"></div>
                     <div>0 - 55</div>
                   </div>
                   <div class="flex items-center q-px-sm">
-                    <div class="circle" style="background-color: yellow"></div>
+                    <div class="circle" style="background-color: #91cc75"></div>
                     <div>56 - 79</div>
                   </div>
                   <div class="flex items-center q-px-sm">
-                    <div class="circle" style="background-color: green"></div>
+                    <div class="circle" style="background-color: #fac858"></div>
                     <div>80 - 100</div>
                   </div>
                 </aside>
@@ -74,28 +141,32 @@ export default {
                 vertical
                 style="height: 100%"
               /> -->
-              <div class="col-md-6 col-12" style="border-left: 1px solid red">
-                <div>
-                  <div class="text-subtitle1 text-weight-medium">
+              <div class="col-md-6 col-12" style="border-left: 0px solid red">
+                <div class="q-pa-sm">
+                  <div class="text-caption text-weight-medium">
                     Industry Rating
                   </div>
-                  <main class="text-white">線圖</main>
+                  <lineChange-chart></lineChange-chart>
                 </div>
-                <div style="border-top: 1px solid red" class="q-pa-sm">
-                  <div class="flex justify-between">
-                    <div class="text-subtitle1 text-weight-medium">
+                <div style="border-top: 0px solid red" class="q-pa-sm">
+                  <div class="flex justify-between q-pa-sm">
+                    <div class="text-caption text-weight-medium">
                       Rating History
                     </div>
                     <q-badge color="blue"> UPGRADE</q-badge>
                   </div>
-                  <main class="text-white">折線圖</main>
+                  <line-chart
+                    name="line2"
+                    :chart="line_chart2"
+                    :option="line_options2"
+                  ></line-chart>
                 </div>
               </div>
             </div>
           </div>
           <div class="col-md-4 col-xs-12">
             <div
-              style="background-color: rgb(77, 77, 77);"
+              style="background-color: rgb(77, 77, 77)"
               class="
                 column
                 justify-center
@@ -111,40 +182,57 @@ export default {
               >
               <q-btn rounded color="deep-orange" label="Build now"></q-btn>
             </div>
-            <div style="background-color: rgb(77, 77, 77);">
+            <div style="background-color: rgb(77, 77, 77)">
               <div class="text-caption text-weight-medium">
                 <span>ASSETS</span> 30 Assets were discovered
-                <span style="text-decoration: underline">(view)</span>
+                <span style="text-decoration: underline" class="cursor-pointer">(view)</span>
                 <main class="text-white">世界地圖</main>
               </div>
             </div>
           </div>
         </q-card-section>
-        <q-card-section class="row">
-          <div class="col-md-4 col-12">
-            <div class="flex justify-between q-pa-sm">
+        <q-card-section class="row q-col-gutter-sm">
+          <div class="col-md-4 col-12 q-pa-sm">
+            <div class="flex justify-between q-pb-sm">
               <div class="text-caption text-weight-medium">DARK MENTIONS</div>
               <q-badge color="blue"> UPGRADE</q-badge>
             </div>
+            <line-chart
+              name="line"
+              :chart="line_chart"
+              :option="line_options"
+            ></line-chart>
           </div>
-          <div class="col-md-4 col-12 q-pa-sm" style="background-color: rgb(77, 77, 77);">
+          <div
+            class="col-md-4 col-12 q-pa-sm"
+            style="background-color: transparent"
+          >
             <div class="flex justify-between">
               <div class="text-caption text-weight-medium">DATA STRUCTURE</div>
               <q-badge color="blue"> UPGRADE</q-badge>
             </div>
             <q-list bordered separator class="q-my-md">
-              <q-item class="q-py-none" style="border: 1px solid #a19999;" >
+              <q-item class="q-py-none" style="border: 1px solid #a19999">
                 <q-item-section>APT40 hacking group linked to </q-item-section>
               </q-item>
-              <q-item class="q-py-none" style="border: 1px solid #a19999;" >
+              <q-item class="q-py-none" style="border: 1px solid #a19999">
                 <q-item-section>Healthcare entities linked to</q-item-section>
               </q-item>
+              <q-item class="q-py-none" style="border: 1px solid #a19999">
+                <q-item-section>APT40 hacking group linked to </q-item-section>
+              </q-item>
+              <q-item class="q-py-none" style="border: 1px solid #a19999">
+                <q-item-section>Healthcare entities linked to</q-item-section>
+              </q-item>
+              <q-item class="q-py-none" style="border: 1px solid #a19999">
+                <q-item-section>APT40 hacking group linked to </q-item-section>
+              </q-item>
             </q-list>
-            <div class="flex justify-end">VIEW ALL</div>
+            <div class="flex justify-end cursor-pointer">VIEW ALL</div>
           </div>
         </q-card-section>
       </q-card>
-      <q-card style="background-color: #363636; border: 1px solid pink">
+      <q-card style="background-color: #363636; box-shadow: none">
         <q-list>
           <q-item>
             <q-item-section>
