@@ -15,6 +15,7 @@ const routes = [
       {path: '/Dashboard2',name: 'Dashboard2', component: () => import('@/views/Dashboard2.vue')},
       {path: '/Dashboard3',name: 'Dashboard3', component: () => import('@/views/Dashboard3.vue')},
       {path: '/Dashboard4',name: 'Dashboard4', component: () => import('@/views/Dashboard4.vue')},
+      {path: '/Dashboard5',name: 'Dashboard5', component: () => import('@/views/Dashboard5.vue')},
     ]
   },
   

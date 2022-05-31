@@ -44,7 +44,8 @@ export default {
             },
           },
         },
-        grid: { top: "45%" },
+        //線圖位置偏移
+        grid: { top: "50%" },
         series: [
           {
             type: "line",
