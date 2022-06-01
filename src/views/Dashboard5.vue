@@ -81,7 +81,7 @@ export default {
 };
 </script>
 <template>
-  <div style="background-color: #363636">
+  <div style="background-color: #2c2c2c">
     <q-page class="text-white q-pa-sm">
       <q-list>
         <q-item>
@@ -95,7 +95,7 @@ export default {
       </q-list>
       <q-card
         class="q-mb-md"
-        style="background-color: #363636; box-shadow: none"
+        style="background-color: #2c2c2c; box-shadow: none"
       >
         <div class="intro q-pl-sm">BREAKDOWN</div>
         <q-card-section class="row q-col-gutter-sm">
@@ -220,13 +220,13 @@ export default {
           </div>
           <div
             class="col-md-4 col-12 q-pa-sm"
-            style="background-color: transparent"
+            
           >
             <div class="flex justify-between">
               <div class="text-caption text-weight-medium">DATA STRUCTURE</div>
               <q-badge color="blue"> UPGRADE</q-badge>
             </div>
-            <q-list bordered separator class="q-my-md">
+            <q-list bordered separator class="q-my-md" style="background-color: #363636">
               <q-item class="q-py-none" style="border: 1px solid #a19999">
                 <q-item-section>APT40 hacking group linked to </q-item-section>
               </q-item>

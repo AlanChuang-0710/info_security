@@ -145,7 +145,7 @@ export default {
             ],
           };
           this.map_chart.setOption(this.map_options);
-          console.log(this.map_chart);
+          console.log(this.map_options);
         });
     },
     init() {

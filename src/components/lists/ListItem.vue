@@ -102,7 +102,7 @@ export default {
 </script>
 <template>
   <div>
-    <q-card-section class="text-dark row q-col-gutter-md">
+    <q-card-section class="text-dark row q-col-gutter-md" style="background-color: #363636;">
       <div class="col-md-4 col-xs-12" v-for="(item, idx) in data" :key="idx">
         <div class="flex justify-between items-center q-px-md q-mb-md">
           <div class="text-white">{{ item.type }}</div>
