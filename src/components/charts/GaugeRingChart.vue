@@ -139,13 +139,13 @@ export default {
 </script>
 <template>
   <div class="col-md-4 col-sm-12 col-xs-12">
-    <q-card class="bg-transparent no-shadow no-border q-mt-sm">
-      <q-card-section class="q-pa-none">
+    <!-- <q-card class="bg-transparent no-shadow no-border q-mt-sm">
+      <q-card-section class="q-pa-none"> -->
         <div>
-          <div ref="gaugeRingchart" id="gaugeRingchart" style="height: 300px"></div>
+          <div ref="gaugeRingchart" id="gaugeRingchart" style="height: 550px"></div>
         </div>
-      </q-card-section>
-    </q-card>
+      <!-- </q-card-section>
+    </q-card> -->
     <q-resize-observer @resize="onResize" />
   </div>
 </template>

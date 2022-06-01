@@ -5,6 +5,8 @@ import PieChart from "@/components/charts/PieChart.vue";
 import LineChart from "@/components/charts/LineChart.vue";
 import LineChangeChart from "@/components/charts/LineChangeChart.vue";
 import MapChart from "@/components/charts/MapChart.vue";
+import MapChart2 from "@/components/charts/MapChart.vue";
+import GaugeRingChart from "@/components/charts/GaugeRingChart.vue";
 export default {
   name: "",
   components: {
@@ -13,6 +15,8 @@ export default {
     LineChart,
     LineChangeChart,
     MapChart,
+    MapChart2,
+    GaugeRingChart
   },
   data() {
     return {
@@ -101,7 +105,8 @@ export default {
                 <div class="text-caption text-weight-medium">
                   Cyber Posture Rating
                 </div>
-                <pie-chart></pie-chart>
+                <!-- <pie-chart></pie-chart> -->
+                <gauge-ring-chart></gauge-ring-chart>
                 <div
                   class="
                     flex
@@ -188,7 +193,8 @@ export default {
               <div class="text-caption text-weight-medium">
                 <span>ASSETS</span> 30 Assets were discovered
                 <span style="text-decoration: underline" class="cursor-pointer">(view)</span>
-                <main class="text-white">世界地圖</main>
+                <map-chart></map-chart>
+                <!-- <map-chart2></map-chart2> -->
               </div>
             </div>
           </div>
