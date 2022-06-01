@@ -5,7 +5,7 @@ import PieChart from "@/components/charts/PieChart.vue";
 import LineChart from "@/components/charts/LineChart.vue";
 import LineChangeChart from "@/components/charts/LineChangeChart.vue";
 import MapChart from "@/components/charts/MapChart.vue";
-import MapChart2 from "@/components/charts/MapChart.vue";
+import MapChartView from "@/components/charts/MapChartView.vue";
 import GaugeRingChart from "@/components/charts/GaugeRingChart.vue";
 export default {
   name: "",
@@ -15,8 +15,8 @@ export default {
     LineChart,
     LineChangeChart,
     MapChart,
-    MapChart2,
-    GaugeRingChart
+    MapChartView,
+    GaugeRingChart,
   },
   data() {
     return {
@@ -43,7 +43,7 @@ export default {
           {
             data: [150, 230, 224, 218],
             type: "line",
-            smooth: true
+            smooth: true,
           },
         ],
       },
@@ -70,7 +70,7 @@ export default {
           {
             data: [50, 135, 88, 140],
             type: "line",
-            smooth: true
+            smooth: true,
           },
         ],
       },
@@ -97,9 +97,9 @@ export default {
         class="q-mb-md"
         style="background-color: #363636; box-shadow: none"
       >
+        <div class="intro q-pl-sm">BREAKDOWN</div>
         <q-card-section class="row q-col-gutter-sm">
           <div class="col-md-8 col-xs-12 q-pl-none">
-            <div class="intro">BREAKDOWN</div>
             <div class="row">
               <div class="col-md-6 col-12">
                 <div class="text-caption text-weight-medium">
@@ -189,12 +189,19 @@ export default {
               >
               <q-btn rounded color="deep-orange" label="Build now"></q-btn>
             </div>
-            <div style="background-color: rgb(77, 77, 77)">
+            <div style="">
               <div class="text-caption text-weight-medium">
                 <span>ASSETS</span> 30 Assets were discovered
-                <span style="text-decoration: underline" class="cursor-pointer">(view)</span>
-                <map-chart></map-chart>
-                <!-- <map-chart2></map-chart2> -->
+                <span style="text-decoration: underline" class="cursor-pointer"
+                  >(view)</span
+                >
+                <img
+                  src="../assets/map.jpg"
+                  style="width: 100%"
+                  class="q-mt-sm"
+                />
+                <!-- <map-chart></map-chart> -->
+                <!-- <map-chart-view></map-chart-view> -->
               </div>
             </div>
           </div>
@@ -250,6 +257,7 @@ export default {
         </q-list>
         <list-item></list-item>
       </q-card>
+      <!-- <map-chart-view></map-chart-view> -->
     </q-page>
   </div>
 </template>
