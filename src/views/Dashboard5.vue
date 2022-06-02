@@ -7,6 +7,7 @@ import LineChangeChart from "@/components/charts/LineChangeChart.vue";
 import MapChart from "@/components/charts/MapChart.vue";
 import MapChartView from "@/components/charts/MapChartView.vue";
 import GaugeRingChart from "@/components/charts/GaugeRingChart.vue";
+import HighMapChart from "@/components/charts/HighMapChart.vue";
 export default {
   name: "",
   components: {
@@ -17,6 +18,7 @@ export default {
     MapChart,
     MapChartView,
     GaugeRingChart,
+    HighMapChart,
   },
   data() {
     return {
@@ -195,13 +197,14 @@ export default {
                 <span style="text-decoration: underline" class="cursor-pointer"
                   >(view)</span
                 >
-                <img
+                <!-- <img
                   src="../assets/map.jpg"
                   style="width: 100%"
                   class="q-mt-sm"
-                />
+                /> -->
                 <!-- <map-chart></map-chart> -->
                 <!-- <map-chart-view></map-chart-view> -->
+                <high-map-chart></high-map-chart>
               </div>
             </div>
           </div>
@@ -218,15 +221,17 @@ export default {
               :option="line_options"
             ></line-chart>
           </div>
-          <div
-            class="col-md-4 col-12 q-pa-sm"
-            
-          >
+          <div class="col-md-4 col-12 q-pa-sm">
             <div class="flex justify-between">
               <div class="text-caption text-weight-medium">DATA STRUCTURE</div>
               <q-badge color="blue"> UPGRADE</q-badge>
             </div>
-            <q-list bordered separator class="q-my-md" style="background-color: #363636">
+            <q-list
+              bordered
+              separator
+              class="q-my-md"
+              style="background-color: #363636"
+            >
               <q-item class="q-py-none" style="border: 1px solid #a19999">
                 <q-item-section>APT40 hacking group linked to </q-item-section>
               </q-item>

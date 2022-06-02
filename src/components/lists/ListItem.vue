@@ -119,7 +119,7 @@ export default {
             :color="item.btnColor"
           ></q-btn>
         </div>
-        <q-list>
+        <!-- <q-list>
           <q-item
             class="bg-white q-mt-md q-mb-sm"
             style="border-radius: 5px"
@@ -133,34 +133,26 @@ export default {
               </div>
             </q-item-section>
           </q-item>
-        </q-list>
-        <!-- expansion -->
-        <!-- <q-expansion-item
-            dark
-            dense-toggle
-            default-opened
-            expand-icon-class="#fff"
-            expand-separator
-            label="Asset Reputation"
-            :header-style="{ borderBottom: '1px solid #fff' }"
+        </q-list> -->
+        <q-expansion-item
+          v-for="(ele, id) in item.detail"
+          :key="id"
+          dark
+          dense-toggle
+          expand-icon-class="#fff"
+          expand-separator
+          :header-style="{ borderBottom: '1px solid #fff' }"
         >
+          <template v-slot:header>
+            <q-item-section> {{ ele.title }} </q-item-section>
+            <q-item-section side :style="`border-bottom: 2px solid ${ele.color}; padding-left: 0!important;`"> {{ ele.num }} </q-item-section>
+          </template>
           <q-card>
             <q-card-section>
               <div class="text-dark">詳細資料</div>
             </q-card-section>
           </q-card>
-        </q-expansion-item> -->
-
-        <!-- dropdown -->
-        <!-- <q-btn-dropdown color="primary" label="Dropdown Button">
-          <q-list>
-            <q-item clickable v-close-popup>
-              <q-item-section>
-                <q-item-label>Photos</q-item-label>
-              </q-item-section>
-            </q-item>
-          </q-list>
-        </q-btn-dropdown> -->
+        </q-expansion-item>
       </div>
     </q-card-section>
   </div>

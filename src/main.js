@@ -14,6 +14,18 @@ import * as echarts from 'echarts'
 Vue.prototype.$echarts = echarts
 
 
+//HightChart
+import HighchartsVue from "highcharts-vue";
+import Highcharts from "highcharts";
+import mapInit from "highcharts/modules/map";
+import mapData from "@highcharts/map-collection/custom/world.geo.json";
+
+mapInit(Highcharts);
+Highcharts.maps["myMapName"] = mapData;
+
+Vue.use(HighchartsVue);
+
+
 new Vue({
   router,
   store,
