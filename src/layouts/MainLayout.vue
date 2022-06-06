@@ -25,25 +25,14 @@ export default {
           icon="menu"
           aria-label="Menu"
         />
-        <q-toolbar-title> Quasar App </q-toolbar-title>
+        <q-toolbar-title> </q-toolbar-title>
         <q-space />
         <div class="q-gutter-sm row items-center no-wrap">
           <!-- <q-btn round dense flat color="white" :icon="$q.fullscreen.isActive ? 'fullscreen_exit' : 'fullscreen'"
                  @click="$q.fullscreen.toggle()"
                  v-if="$q.screen.gt.sm">
           </q-btn> -->
-          <q-btn
-            round
-            dense
-            flat
-            color="white"
-            icon="fab fa-github"
-            type="a"
-            href="https://github.com/pratik227/quasar-admin"
-            target="_blank"
-          >
-          </q-btn>
-          <q-btn
+          <!-- <q-btn
             round
             dense
             flat
@@ -53,7 +42,7 @@ export default {
             href="https://github.com/sponsors/pratik227"
             target="_blank"
           >
-          </q-btn>
+          </q-btn> -->
           <q-btn round dense flat color="white" icon="notifications">
             <q-badge color="red" text-color="white" floating> 5 </q-badge>
             <q-menu>
