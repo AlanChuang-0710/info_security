@@ -8,7 +8,7 @@ export default {
         xAxis: {
           type: "category",
           boundaryGap: false,
-          data: ["Mon", "Tue", "Wed", "Thu"],
+          data: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
           axisLine: {
             lineStyle: {
               color: "#c7c7cb",
@@ -28,9 +28,9 @@ export default {
         },
         series: [
           {
-            name: "Highest",
+            name: "One",
             type: "line",
-            data: [10, 12, 12, 9],
+            data: [200, 130, 110, 95, 127, 287, 65],
             markPoint: {
               data: [
                 { type: "max", name: "Max" },
@@ -42,9 +42,9 @@ export default {
             // },
           },
           {
-            name: "Lowest",
+            name: "Two",
             type: "line",
-            data: [1, -2, 2, 5],
+            data: [100, 255, 230, 135, 98, 120, 272],
             markPoint: {
               data: [{ name: "周最低", value: -2, xAxis: 1, yAxis: -1.5 }],
             },
@@ -69,6 +69,28 @@ export default {
             //     ],
             //   ],
             // },
+          },
+          {
+            name: "Three",
+            type: "line",
+            data: [123, 267, 300, 283, 127, 178, 65],
+            markPoint: {
+              data: [
+                { type: "max", name: "Max" },
+                { type: "min", name: "Min" },
+              ],
+            },
+          },
+          {
+            name: "Four",
+            type: "line",
+            data: [290, 139, 115, 95, 88, 260, 65],
+            markPoint: {
+              data: [
+                { type: "max", name: "Max" },
+                { type: "min", name: "Min" },
+              ],
+            },
           },
         ],
       },
@@ -107,5 +129,4 @@ export default {
     <q-resize-observer @resize="onResize" />
   </div>
 </template>
-<style lang="scss" scoped>
-</style>
+<style lang="scss" scoped></style>

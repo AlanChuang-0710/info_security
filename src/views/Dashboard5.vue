@@ -8,6 +8,7 @@ import MapChart from "@/components/charts/MapChart.vue";
 import MapChartView from "@/components/charts/MapChartView.vue";
 import GaugeRingChart from "@/components/charts/GaugeRingChart.vue";
 import HighMapChart from "@/components/charts/HighMapChart.vue";
+import LineGradient from "@/components/charts/LineGradient.vue";
 export default {
   name: "",
   components: {
@@ -19,6 +20,7 @@ export default {
     MapChartView,
     GaugeRingChart,
     HighMapChart,
+    LineGradient,
   },
   data() {
     return {
@@ -78,6 +80,44 @@ export default {
       },
       line_chart: null,
       line_chart2: null,
+      health: [
+        {
+          title: "健康",
+          content: "沒有特別資安事件",
+        },
+        {
+          title: "警告",
+          content: "沒有觸發嚴重的資安事件",
+        },
+      ],
+      secure: [
+        {
+          title: "健康",
+          content: "沒有要處理的案件單",
+        },
+        {
+          title: "警告",
+          content: "尚有未處理的案件單",
+        },
+        {
+          title: "危險",
+          content: "未處理的案件單過期",
+        },
+      ],
+      watch: [
+        {
+          title: "健康",
+          content: "占用主機資源 70%以內",
+        },
+        {
+          title: "警告",
+          content: "占用主機資源 70% ~ 90%",
+        },
+        {
+          title: "危險",
+          content: "占用主機資源已超過 90%",
+        },
+      ],
     };
   },
 };
@@ -91,7 +131,7 @@ export default {
             <q-icon color="grey" name="fas fa-chart-line" size="44px" />
           </q-item-section>
           <q-item-section>
-            <div class="text-h6 text-white">Security Profile</div>
+            <div class="text-h6 text-white">資安合規儀表板</div>
           </q-item-section>
         </q-item>
       </q-list>
@@ -99,16 +139,15 @@ export default {
         class="q-mb-md"
         style="background-color: #2c2c2c; box-shadow: none"
       >
-        <div class="intro q-pl-sm">BREAKDOWN</div>
         <q-card-section class="row q-col-gutter-sm">
           <div class="col-md-8 col-xs-12 q-pl-none">
             <div class="row">
               <div class="col-md-6 col-12">
-                <div class="text-caption text-weight-medium">
-                  Cyber Posture Rating
+                <div class="text-weight-bold q-mb-lg" style="font-size: 18px;">
+                  場域健康狀態摘要
                 </div>
                 <!-- <pie-chart></pie-chart> -->
-                <gauge-ring-chart></gauge-ring-chart>
+                <!-- <gauge-ring-chart></gauge-ring-chart>
                 <div
                   class="
                     flex
@@ -142,7 +181,78 @@ export default {
                     <div class="circle" style="background-color: #fac858"></div>
                     <div>80 - 100</div>
                   </div>
-                </aside>
+                </aside> -->
+                <main
+                  class="flex column justify-center items-center q-gutter-y-md q-mb-lg q-py-sm"
+                  style="border: 1px solid #eee; border-radius: 10px;"
+                >
+                  <div class="text-h6 q-ma-none">場域健康狀態</div>
+                  <div>
+                    <q-btn
+                      class="cursor-inherit"
+                      outline
+                      round
+                      color="secondary"
+                      icon="done"
+                    />
+                  </div>
+                  <div class="text-h6 text-secondary">健康</div>
+                  <ul>
+                    <li
+                      v-for="(item, idx) in health"
+                      :class="item.title === '健康' ? 'text-secondary' : ''"
+                    >
+                      {{ item.title }}: {{ item.content }}
+                    </li>
+                  </ul>
+                </main>
+                <main
+                  class="flex column justify-center items-center q-gutter-y-md q-mb-lg q-py-sm"
+                  style="border: 1px solid #eee; border-radius: 10px;"
+                >
+                  <div class="text-h6 q-ma-none">場域資安處理狀態</div>
+                  <div>
+                    <q-btn
+                      class="cursor-inherit"
+                      outline
+                      round
+                      color="secondary"
+                      icon="done"
+                    />
+                  </div>
+                  <div class="text-h6 text-secondary">健康</div>
+                  <ul>
+                    <li
+                      v-for="(item, idx) in secure"
+                      :class="item.title === '健康' ? 'text-secondary' : ''"
+                    >
+                      {{ item.title }}: {{ item.content }}
+                    </li>
+                  </ul>
+                </main>
+                <main
+                  class="flex column justify-center items-center q-gutter-y-md q-mb-lg q-py-sm"
+                  style="border: 1px solid #eee; border-radius: 10px;"
+                >
+                  <div class="text-h6 q-ma-none">主機監控</div>
+                  <div>
+                    <q-btn
+                      class="cursor-inherit"
+                      outline
+                      round
+                      color="secondary"
+                      icon="done"
+                    />
+                  </div>
+                  <div class="text-h6 text-secondary">健康</div>
+                  <ul>
+                    <li
+                      v-for="(item, idx) in watch"
+                    >
+                      {{ item.title }}: {{ item.content }}
+                    </li>
+                  </ul>
+                </main>
               </div>
               <!-- <q-separator
                 color="black"
@@ -152,29 +262,29 @@ export default {
               /> -->
               <div class="col-md-6 col-12" style="border-left: 0px solid red">
                 <div class="q-pa-sm">
-                  <div class="text-caption text-weight-medium">
-                    Industry Rating
+                  <div class="text-weight-bold" style="font-size: 18px; margin-bottom: 2px">
+                    4大告警類型一週趨勢圖
                   </div>
                   <lineChange-chart></lineChange-chart>
                 </div>
                 <div style="border-top: 0px solid red" class="q-pa-sm">
                   <div class="flex justify-between q-pa-sm">
-                    <div class="text-caption text-weight-medium">
-                      Rating History
+                    <div class="text-weight-bold" style="font-size: 18px; margin-bottom: 2px">
+                      IPPX 阻擋趨勢圖
                     </div>
-                    <q-badge color="blue"> UPGRADE</q-badge>
                   </div>
-                  <line-chart
+                  <!-- <line-chart
                     name="line2"
                     :chart="line_chart2"
                     :option="line_options2"
-                  ></line-chart>
+                  ></line-chart> -->
+                  <line-gradient></line-gradient>
                 </div>
               </div>
             </div>
           </div>
           <div class="col-md-4 col-xs-12">
-            <div
+            <!-- <div
               style="background-color: rgb(77, 77, 77)"
               class="
                 column
@@ -190,13 +300,10 @@ export default {
                 >Share your cyber profile with vendors in a few clicks!</small
               >
               <q-btn rounded color="deep-orange" label="Build now"></q-btn>
-            </div>
+            </div> -->
             <div style="">
-              <div class="text-caption text-weight-medium">
-                <span>ASSETS</span> 30 Assets were discovered
-                <span style="text-decoration: underline" class="cursor-pointer"
-                  >(view)</span
-                >
+              <div class="text-weight-bold q-mb-md q-pt-sm" style="font-size: 18px;">
+                <span>資安攻擊分佈圖</span>
                 <!-- <img
                   src="../assets/map.jpg"
                   style="width: 100%"
@@ -209,7 +316,7 @@ export default {
             </div>
           </div>
         </q-card-section>
-        <q-card-section class="row q-col-gutter-sm">
+        <!-- <q-card-section class="row q-col-gutter-sm">
           <div class="col-md-4 col-12 q-pa-sm">
             <div class="flex justify-between q-pb-sm">
               <div class="text-caption text-weight-medium">DARK MENTIONS</div>
@@ -250,13 +357,13 @@ export default {
             </q-list>
             <div class="flex justify-end cursor-pointer">VIEW ALL</div>
           </div>
-        </q-card-section>
+        </q-card-section> -->
       </q-card>
       <q-card style="background-color: #363636; box-shadow: none">
         <q-list>
           <q-item>
             <q-item-section>
-              <div class="intro">POSTURE BY CATEGORIES</div>
+              <div class="intro text-weight-bold">資安合規狀態總覽</div>
             </q-item-section>
           </q-item>
         </q-list>
@@ -274,5 +381,13 @@ export default {
   border-radius: 50%;
   margin: 0 10px 0 0;
   transform: translateY(15%);
+}
+ul {
+  list-style-type: none;
+  margin-block-start: 0;
+  margin-block-end: 0;
+  margin-inline-start: 0px;
+  margin-inline-end: 0px;
+  padding-inline-start: 0px;
 }
 </style>
