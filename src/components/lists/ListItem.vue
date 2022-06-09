@@ -756,7 +756,7 @@ export default {
               ],
             },
             {
-              title: "資通系統發展及維護安全r",
+              title: "資通系統發展及維護安全",
               num: 10,
               color: "green",
               content: [
