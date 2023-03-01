@@ -5,7 +5,7 @@ module.exports = {
       rtlSupport: true,
     },
   },
-  publicPath: process.env.NODE_ENV === "production" ? "/csm/" : "/",
+  publicPath: process.env.NODE_ENV === "production" ? "/csm/" : "/", //build => "./"
   transpileDependencies: ["quasar"],
   devServer: {
     port: 8080, //端口號

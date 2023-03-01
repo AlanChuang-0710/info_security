@@ -199,7 +199,7 @@ export default {
                   <div class="text-h6 text-secondary">健康</div>
                   <ul>
                     <li
-                      v-for="(item, idx) in health"
+                      v-for="(item, idx) in health" :key="idx"
                       :class="item.title === '健康' ? 'text-secondary' : ''"
                     >
                       {{ item.title }}: {{ item.content }}
@@ -223,7 +223,7 @@ export default {
                   <div class="text-h6 text-secondary">健康</div>
                   <ul>
                     <li
-                      v-for="(item, idx) in secure"
+                      v-for="(item, idx) in secure" :key="idx"
                       :class="item.title === '健康' ? 'text-secondary' : ''"
                     >
                       {{ item.title }}: {{ item.content }}
@@ -247,7 +247,7 @@ export default {
                   <div class="text-h6 text-secondary">健康</div>
                   <ul>
                     <li
-                      v-for="(item, idx) in watch"
+                      v-for="(item, idx) in watch" :key="idx"
                     >
                       {{ item.title }}: {{ item.content }}
                     </li>

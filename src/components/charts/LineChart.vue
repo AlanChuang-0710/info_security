@@ -14,7 +14,7 @@ export default {
       let linechart = this.$refs[this.nameTemp];
       this.$echarts.dispose(linechart);
       this.chartTemp = this.$echarts.init(linechart, {
-        backgroundColor: "#363636",
+        backgroundColor: "transparent",
       });
       this.chartTemp.setOption(this.optionTemp);
     },
@@ -32,7 +32,7 @@ export default {
 <template>
   <div>
     <div>
-      <div :ref="name" style="height: 300px"></div>
+      <div :ref="name" style="height: 100px"></div>
     </div>
     <q-resize-observer @resize="onResize" />
   </div>
