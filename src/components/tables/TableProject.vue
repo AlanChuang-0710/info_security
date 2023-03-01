@@ -1,30 +1,45 @@
 <script>
+import axios from "axios";
+import common from "../../shared/common";
 export default {
   name: "TableProject",
   data() {
     return {
+      project: {
+        uuid: "",
+      },
       // form
       form_general: {
-        projectName: "",
+        name: "",
         version: "",
         classifier: "",
         description: "",
-        tags: "",
       },
-      classifier_options: ["a", "b"],
+      classifier_options: [
+        "Application",
+        "Container",
+        "Device",
+        "File",
+        "Firmware",
+        "Framework",
+        "Library",
+        "Operating system",
+      ],
       // tab
       tabCreatePj: "general",
       // dialog
+      isNew: false,
       modalCreatePj: false,
       // table
       filter: "",
+      tableLoading: false,
       toggle: true,
       visibleProjectColumns: [
-        "projectName",
+        "name",
         "version",
         "classifier",
         "lastBOMImport",
-        "bomFormat",
+        "lastBomImportFormat",
         "riskScore",
         "active",
         "policyViolations",
@@ -32,11 +47,11 @@ export default {
       ],
       projectColumns: [
         {
-          name: "projectName",
+          name: "name",
           required: true,
           label: "Project Name",
           align: "left",
-          field: "projectName",
+          field: "name",
           sortable: true,
         },
         {
@@ -64,11 +79,11 @@ export default {
           sortable: true,
         },
         {
-          name: "bomFormat",
+          name: "lastBomImportFormat",
           // required: true,
           label: "BOM Format",
           align: "left",
-          field: "bomFormat",
+          field: "lastBomImportFormat",
           sortable: true,
         },
         {
@@ -104,200 +119,62 @@ export default {
           sortable: false,
         },
       ],
-      projectData: [
-        {
-          projectName: "FR Platform Check",
-          version: "1.0",
-          classifier: "APPLICATION",
-          lastBOMImport: "-",
-          bomFormat: "-",
-          riskScore: 0,
-          active: true,
-          policyViolations: 0,
-          vulnerabilities: 0,
-        },
-        {
-          projectName: "HardwareTest",
-          version: "1.2",
-          classifier: "DEVICE",
-          lastBOMImport: "-",
-          bomFormat: "-",
-          riskScore: 0,
-          active: false,
-          policyViolations: 0,
-          vulnerabilities: 0,
-        },
-        {
-          projectName: "HardwareTest",
-          version: "1.1",
-          classifier: "DEVICE",
-          lastBOMImport: "-",
-          bomFormat: "-",
-          riskScore: 0,
-          active: false,
-          policyViolations: 0,
-          vulnerabilities: 0,
-        },
-        {
-          projectName: "HardwareTest",
-          version: "1",
-          classifier: "DEVICE",
-          lastBOMImport: "-",
-          bomFormat: "-",
-          riskScore: 0,
-          active: false,
-          policyViolations: 0,
-          vulnerabilities: 0,
-        },
-        {
-          projectName: "TESTtwo",
-          version: "0.8",
-          classifier: "APPLICATION",
-          lastBOMImport: "-",
-          bomFormat: "-",
-          riskScore: 0,
-          active: false,
-          policyViolations: 0.5,
-          vulnerabilities: 0.3,
-        },
-      ],
-      // visibleColumns: ["calories", "desc", "protein", "sodium", "iron"],
-      // columns: [
+      projectData: [],
+      // projectData: [
       //   {
-      //     name: "name",
-      //     required: true,
-      //     label: "Dessert (100g serving)",
-      //     align: "left",
-      //     field: (row) => row.name,
-      //     format: (val) => `${val}`,
-      //     sortable: true,
+      // name: "FR Platform Check",
+      // version: "1.0",
+      // classifier: "APPLICATION",
+      // lastBOMImport: "-",
+      // lastBomImportFormat: "-",
+      // riskScore: 0,
+      // active: true,
+      // policyViolations: 0,
+      // vulnerabilities: 0,
       //   },
       //   {
-      //     name: "calories",
-      //     align: "center",
-      //     label: "Calories",
-      //     field: "calories",
-      //     sortable: true,
-      //   },
-      //   { name: "fat", label: "Fat", field: "fat", sortable: true },
-      //   { name: "carbs", label: "Carbs", field: "carbs" },
-      //   { name: "protein", label: "Protein", field: "protein" },
-      //   { name: "sodium", label: "Sodium ", field: "sodium" },
-      //   {
-      //     name: "calcium",
-      //     label: "Calcium ",
-      //     field: "calcium",
-      //     sortable: true,
-      //     sort: (a, b) => parseInt(a, 10) - parseInt(b, 10),
+      //     name: "HardwareTest",
+      //     version: "1.2",
+      //     classifier: "DEVICE",
+      //     lastBOMImport: "-",
+      //     lastBomImportFormat: "-",
+      //     riskScore: 0,
+      //     active: false,
+      //     policyViolations: 0,
+      //     vulnerabilities: 0,
       //   },
       //   {
-      //     name: "iron",
-      //     label: "Iron ",
-      //     field: "iron",
-      //     sortable: true,
-      //     sort: (a, b) => parseInt(a, 10) - parseInt(b, 10),
-      //   },
-      // ],
-      // data: [
-      //   {
-      //     name: "Frozen Yogurt",
-      //     calories: 159,
-      //     fat: 6.0,
-      //     carbs: 24,
-      //     protein: 4.0,
-      //     sodium: 87,
-      //     calcium: "14%",
-      //     iron: "1%",
+      //     name: "HardwareTest",
+      //     version: "1.1",
+      //     classifier: "DEVICE",
+      //     lastBOMImport: "-",
+      //     lastBomImportFormat: "-",
+      //     riskScore: 0,
+      //     active: false,
+      //     policyViolations: 0,
+      //     vulnerabilities: 0,
       //   },
       //   {
-      //     name: "Ice cream sandwich",
-      //     calories: 237,
-      //     fat: 9.0,
-      //     carbs: 37,
-      //     protein: 4.3,
-      //     sodium: 129,
-      //     calcium: "8%",
-      //     iron: "1%",
+      //     name: "HardwareTest",
+      //     version: "1",
+      //     classifier: "DEVICE",
+      //     lastBOMImport: "-",
+      //     lastBomImportFormat: "-",
+      //     riskScore: 0,
+      //     active: false,
+      //     policyViolations: 0,
+      //     vulnerabilities: 0,
       //   },
       //   {
-      //     name: "Eclair",
-      //     calories: 262,
-      //     fat: 16.0,
-      //     carbs: 23,
-      //     protein: 6.0,
-      //     sodium: 337,
-      //     calcium: "6%",
-      //     iron: "7%",
-      //   },
-      //   {
-      //     name: "Cupcake",
-      //     calories: 305,
-      //     fat: 3.7,
-      //     carbs: 67,
-      //     protein: 4.3,
-      //     sodium: 413,
-      //     calcium: "3%",
-      //     iron: "8%",
-      //   },
-      //   {
-      //     name: "Gingerbread",
-      //     calories: 356,
-      //     fat: 16.0,
-      //     carbs: 49,
-      //     protein: 3.9,
-      //     sodium: 327,
-      //     calcium: "7%",
-      //     iron: "16%",
-      //   },
-      //   {
-      //     name: "Jelly bean",
-      //     calories: 375,
-      //     fat: 0.0,
-      //     carbs: 94,
-      //     protein: 0.0,
-      //     sodium: 50,
-      //     calcium: "0%",
-      //     iron: "0%",
-      //   },
-      //   {
-      //     name: "Lollipop",
-      //     calories: 392,
-      //     fat: 0.2,
-      //     carbs: 98,
-      //     protein: 0,
-      //     sodium: 38,
-      //     calcium: "0%",
-      //     iron: "2%",
-      //   },
-      //   {
-      //     name: "Honeycomb",
-      //     calories: 408,
-      //     fat: 3.2,
-      //     carbs: 87,
-      //     protein: 6.5,
-      //     sodium: 562,
-      //     calcium: "0%",
-      //     iron: "45%",
-      //   },
-      //   {
-      //     name: "Donut",
-      //     calories: 452,
-      //     fat: 25.0,
-      //     carbs: 51,
-      //     protein: 4.9,
-      //     sodium: 326,
-      //     calcium: "2%",
-      //     iron: "22%",
-      //   },
-      //   {
-      //     name: "KitKat",
-      //     calories: 518,
-      //     fat: 26.0,
-      //     carbs: 65,
-      //     protein: 7,
-      //     sodium: 54,
-      //     calcium: "12%",
-      //     iron: "6%",
+      //     name: "TESTtwo",
+      //     version: "0.8",
+      //     classifier: "APPLICATION",
+      //     lastBOMImport: "-",
+      //     lastBomImportFormat: "-",
+      //     riskScore: 0,
+      //     active: false,
+      //     policyViolations: 0.5,
+      //     vulnerabilities: 0.3,
       //   },
       // ],
     };
@@ -310,25 +187,238 @@ export default {
     toSinglePage(val) {
       console.log(val);
     },
+    refreshTable(data) {
+      this.projectData.push({
+        name: data.name,
+        version: data.version ? data.version : "-",
+        classifier: data.classifier,
+        lastBOMImport: "-",
+        lastBomImportFormat: "-",
+        riskScore: 0,
+        active: data.active,
+        policyViolations: 0,
+        vulnerabilities: 0,
+        uuid: data.uuid,
+      });
+    },
+    getData() {
+      // 'https://sbomapi.lale.fun/api/v1/project'
+      let url = `${this.$api.BASE_URL}/${this.$api.URL_PROJECT}`;
+      // console.log(url);
+      this.tableLoading = true
+      axios
+        .get(url, {
+          headers: {
+            "X-api-key": `${this.$api.api_key}`,
+          },
+        })
+        .then((res) => {
+          console.log("getPjData res =>", res.data);
+          this.tableLoading = false
+          const arr = res.data.map((item) => {
+            return {
+              name: item.name,
+              version: item.version,
+              classifier: item.classifier,
+              lastBOMImport: item.lastBomImport ? common.formatTimestamp(item.lastBomImport, true) : "-",
+              lastBomImportFormat: item.lastBomImportFormat
+                ? item.lastBomImportFormat
+                : "-",
+              riskScore: item.lastInheritedRiskScore,
+              active: item.active,
+              policyViolations: item.metrics
+                ? item.metrics.policyViolationsInfo
+                : 0, //20221025 Billy
+              vulnerabilities: item.metrics ? item.metrics.vulnerabilities : 0, //20221025 Billy
+              uuid: item.uuid, //20221025 Billy
+            };
+          });
+          this.projectData = arr;
+        })
+        .catch((err) => {
+          console.log(err);
+          this.$q.notify({
+            message: err,
+            position: "top-right",
+            type: "negative",
+            color: "negative",
+          });
+        });
+    },
+    createProject() {
+      if (!this.form_general["name"] || !this.form_general["classifier"]) {
+        this.$refs.name.validate();
+        this.$refs.classifier.validate();
+        return;
+      }
+
+      //20221025 Billy
+      let url = `${this.$api.BASE_URL}/${this.$api.URL_PROJECT}`;
+      // console.log(url);
+      this.form_general.classifier =
+        this.form_general.classifier != "Operating system"
+          ? this.form_general.classifier.toUpperCase()
+          : "OPERATING_SYSTEM";
+      
+      this.tableLoading = true
+      axios
+        .put(url, this.form_general, {
+          headers: {
+            "X-api-key": `${this.$api.api_key}`,
+          },
+        })
+        .then((res) => {
+          console.log("addPj res=>", res.data);
+          this.tableLoading = false
+          this.refreshTable(res.data);
+          this.$q.notify({
+            message: `已成功新增`,
+            position: "top-right",
+            type: "positive",
+            color: "positive",
+          });
+        })
+        .catch((err) => {
+          console.log(err);
+          this.$q.notify({
+            message: err,
+            position: "top-right",
+            type: "negative",
+            color: "negative",
+          });
+        })
+        .finally(() => {
+          this.modalCreatePj = false;
+          for (let key in this.form_general) {
+            this.form_general[key] = "";
+          }
+        });
+    },
+    deleteProject() {
+      this.modalCreatePj = false;
+      let url =
+        `${this.$api.BASE_URL}/${this.$api.URL_PROJECT}/` + this.project.uuid;
+
+      this.tableLoading = true
+      axios
+        .delete(url, {
+          headers: {
+            "X-api-key": `${this.$api.api_key}`,
+          },
+        })
+        .then((res) => {
+          console.log("deleteProject res =>", res);
+          this.tableLoading = false
+          this.$q.notify({
+            message: `已成功刪除`,
+            position: "top-right",
+            type: "positive",
+            color: "positive",
+          });
+        })
+        .catch((err) => {
+          console.log(err);
+          this.$q.notify({
+            message: err,
+            position: "top-right",
+            type: "negative",
+            color: "negative",
+          });
+        })
+        .finally(() => {
+          this.getData();
+        });
+    },
+    updateProject() {
+      this.modalCreatePj = false;
+      let url = `${this.$api.BASE_URL}/${this.$api.URL_PROJECT}`;
+
+      this.tableLoading = true
+      axios
+        .post(
+          url,
+          {
+            name: this.form_general.name,
+            version: this.form_general.version,
+            classifier: this.form_general.classifier,
+            description: this.form_general.description,
+            uuid: this.project.uuid,
+            // publisher: this.form_general.publisher,
+            // group: this.form_general.group,
+            // cpe: this.form_general.cpe,
+            // purl: this.form_general.purl,
+            // swidTagId: this.form_general.swidTagId,
+            // tags: tagsNode,
+            // active: this.form_general.active,
+            // author: this.form_general.author,
+          },
+          {
+            headers: {
+              "X-api-key": `${this.$api.api_key}`,
+            },
+          }
+        )
+        .then((res) => {
+          console.log("updateProject res =>", res);
+          this.tableLoading = false
+          this.$q.notify({
+            message: `已成功編輯`,
+            position: "top-right",
+            type: "positive",
+            color: "positive",
+          });
+        })
+        .catch((err) => {
+          console.log(err);
+          this.$q.notify({
+            message: err,
+            position: "top-right",
+            type: "negative",
+            color: "negative",
+          });
+        })
+        .finally(() => {
+          this.getData();
+        });
+    },
+    openModal(isNew, item) {
+      if (isNew) {
+        for (let key in this.form_general) {
+          this.form_general[key] = "";
+        }
+        this.isNew = true;
+      } else {
+        this.form_general = Object.assign({}, item);
+        // console.log('2', this.form_general);
+        this.project.uuid = item.uuid;
+        this.isNew = false;
+      }
+      this.modalCreatePj = true;
+    },
+  },
+  mounted() {
+    this.getData();
   },
 };
 </script>
 <template>
-  <div class="q-pa-md">
+  <div class="q-py-lg" style="background-color: rgb(54, 54, 54)">
     <!-- 
       q-select:
       :display-value => 下拉選單選中項目之呈現方式
       option-value => 對應下拉選單與表格欄位
     -->
     <q-table
+      dark
       :data="projectData"
       :columns="projectColumns"
       row-key="Version"
       :filter="filter"
+      :loading="tableLoading"
       :visible-columns="visibleProjectColumns"
     >
       <template v-slot:top>
-        <q-btn outline label="+ Create Project" @click="modalCreatePj = true" />
+        <q-btn outline label="+ Create Projects" @click="openModal(true)" />
         <q-toggle
           v-model="toggle"
           checked-icon="check"
@@ -340,6 +430,7 @@ export default {
 
         <div class="flex justify-center items-center">
           <q-input
+            dark
             dense
             debounce="300"
             v-model="filter"
@@ -355,10 +446,11 @@ export default {
               class="q-pt-sm"
               style="border: 0px solid transparent"
               size="sm"
-              name="slow_motion_video"
+              name="autorenew"
             />
           </div>
           <q-select
+            dark
             v-model="visibleProjectColumns"
             multiple
             dense
@@ -375,85 +467,98 @@ export default {
       </template>
       <template v-slot:header="props">
         <q-tr :props="props" no-hover>
+          <q-th align="left">Option</q-th>
           <q-th v-for="col in props.cols" :key="col.name" :props="props">
             {{ col.label }}
           </q-th>
         </q-tr>
       </template>
       <template v-slot:body="props">
-        <tr no-hover :props="props">
-          <td>
-            <div
-              class="cursor-pointer"
-              @click="toSinglePage(props.row.projectName)"
-            >
-              {{ props.row.projectName }}
+        <q-tr no-hover :props="props">
+          <q-td>
+            <q-btn
+              size="sm"
+              color="blue-6 q-mr-sm"
+              label="modify"
+              @click="openModal(false, props.row)"
+            />
+          </q-td>
+          <q-td>
+            <div class="cursor-pointer">
+              <router-link :to="`/ProjectList/${props.row.uuid}`">
+                <span style="color: #fff; text-decoration: underline">
+                  {{ props.row.name }}
+                </span>
+              </router-link>
             </div>
-          </td>
-          <td v-if="visibleProjectColumns.includes('version')">
+          </q-td>
+          <q-td v-if="visibleProjectColumns.includes('version')">
             {{ props.row.version }}
-          </td>
-          <td v-if="visibleProjectColumns.includes('classifier')">
+          </q-td>
+          <q-td v-if="visibleProjectColumns.includes('classifier')">
             {{ props.row.classifier }}
-          </td>
-          <td v-if="visibleProjectColumns.includes('lastBOMImport')">
+          </q-td>
+          <q-td v-if="visibleProjectColumns.includes('lastBOMImport')">
             {{ props.row.lastBOMImport }}
-          </td>
-          <td v-if="visibleProjectColumns.includes('bomFormat')">
-            {{ props.row.bomFormat }}
-          </td>
-          <td v-if="visibleProjectColumns.includes('riskScore')">
+          </q-td>
+          <q-td v-if="visibleProjectColumns.includes('lastBomImportFormat')">
+            {{ props.row.lastBomImportFormat }}
+          </q-td>
+          <q-td v-if="visibleProjectColumns.includes('riskScore')">
             {{ props.row.riskScore }}
-          </td>
-          <td v-if="visibleProjectColumns.includes('active')">
-            <q-checkbox v-model="props.row.active" />
-          </td>
-          <td v-if="visibleProjectColumns.includes('policyViolations')">
-            <q-linear-progress
-              rounded
-              color="warning"
-              size="14px"
-              :value="props.row.policyViolations"
-            >
-              <div class="absolute-full flex flex-center">
-                <q-badge
-                  style="background: transparent !important"
-                  class="q-pa-none"
-                  color="white"
-                  text-color="primary"
-                  :label="props.row.policyViolations"
-                />
-              </div>
-            </q-linear-progress>
-          </td>
-          <td v-if="visibleProjectColumns.includes('vulnerabilities')">
-            <q-linear-progress
-              rounded
-              color="warning"
-              size="14px"
-              :value="props.row.vulnerabilities"
-            >
-              <div class="absolute-full flex flex-center">
-                <q-badge
-                  style="background: transparent !important"
-                  class="q-pa-none"
-                  color="white"
-                  text-color="primary"
-                  :label="props.row.vulnerabilities"
-                />
-              </div>
-            </q-linear-progress>
-          </td>
-        </tr>
+          </q-td>
+          <q-td v-if="visibleProjectColumns.includes('active')">
+            <q-checkbox dark v-model="props.row.active" />
+          </q-td>
+          <q-td v-if="visibleProjectColumns.includes('policyViolations')">
+            <template v-if="props.row.policyViolations">
+              <q-linear-progress
+                rounded
+                color="warning"
+                size="14px"
+                :value="props.row.policyViolations"
+              >
+                <div class="absolute-full flex flex-center">
+                  <q-badge
+                    style="background: transparent !important"
+                    class="q-pa-none"
+                    color="white"
+                    text-color="primary"
+                    :label="props.row.policyViolations"
+                  />
+                </div>
+              </q-linear-progress>
+            </template>
+            <template v-if="!props.row.policyViolations"> 0 </template>
+          </q-td>
+          <q-td v-if="visibleProjectColumns.includes('vulnerabilities')">
+            <template v-if="props.row.vulnerabilities">
+              <q-linear-progress
+                rounded
+                color="warning"
+                size="14px"
+                :value="props.row.vulnerabilities"
+              >
+                <div class="absolute-full flex flex-center">
+                  <q-badge
+                    style="background: transparent !important"
+                    class="q-pa-none"
+                    color="white"
+                    text-color="primary"
+                    :label="props.row.vulnerabilities"
+                  />
+                </div>
+              </q-linear-progress>
+            </template>
+            <template v-if="!props.row.vulnerabilities"> 0 </template>
+          </q-td>
+        </q-tr>
       </template>
     </q-table>
 
-    <!-- dialog-新增專案 -->
+    <!-- dialog-新增、修改、刪除專案 -->
     <q-dialog v-model="modalCreatePj">
-      <div
-        class="aa"
-        style="background-color: #fff; width: 800px; max-width: 80%"
-      >
+      <div style="background-color: #fff; width: 800px; max-width: 80%">
         <div class="q-pa-md">
           <div class="text-h6">Create Project</div>
         </div>
@@ -476,19 +581,20 @@ export default {
                 Project Name<span class="required">＊</span>
                 <div class="flex items-center">
                   <q-input
+                    ref="name"
                     style="flex: 1 0 0"
                     outlined
                     dense
-                    v-model="form_general['projectName']"
+                    v-model="form_general['name']"
                     class="q-mr-md"
                     :rules="[(val) => val && val.length > 0]"
                     hide-bottom-space
                   />
-                  <q-btn icon="camera_enhance" color="primary" size="10px">
+                  <q-icon name="info" size="20px">
                     <q-tooltip>
                       The name of the component as provided by the supplier
                     </q-tooltip>
-                  </q-btn>
+                  </q-icon>
                 </div>
               </div>
               <div class="q-mb-lg">
@@ -501,17 +607,18 @@ export default {
                     v-model="form_general['version']"
                     class="q-mr-md"
                   />
-                  <q-btn icon="camera_enhance" color="primary" size="10px">
+                  <q-icon name="info" size="20px">
                     <q-tooltip>
                       The name of the component as provided by the supplier
                     </q-tooltip>
-                  </q-btn>
+                  </q-icon>
                 </div>
               </div>
               <div class="q-mb-lg">
                 Classifier<span class="required">＊</span>
                 <div class="flex items-center">
                   <q-select
+                    ref="classifier"
                     style="flex: 1 0 0"
                     outlined
                     dense
@@ -521,11 +628,11 @@ export default {
                     :rules="[(val) => val && val.length > 0]"
                     hide-bottom-space
                   />
-                  <q-btn icon="camera_enhance" color="primary" size="10px">
+                  <q-icon name="info" size="20px">
                     <q-tooltip>
                       The name of the component as provided by the supplier
                     </q-tooltip>
-                  </q-btn>
+                  </q-icon>
                 </div>
               </div>
               <div class="q-mb-lg">
@@ -537,15 +644,6 @@ export default {
                   v-model="form_general['description']"
                 />
               </div>
-              <div>
-                Tags
-                <q-input
-                  placeholder="Add Tag"
-                  outlined
-                  dense
-                  v-model="form_general['tags']"
-                />
-              </div>
             </q-tab-panel>
             <q-tab-panel name="identity">
               <div class="text-h6">identity</div>
@@ -553,13 +651,32 @@ export default {
           </q-tab-panels>
           <div class="q-py-md flex justify-end">
             <q-btn
+              v-if="isNew === false"
+              label="delete"
+              color="red-6"
+              text-color="white"
+              class="q-mr-lg"
+              @click="deleteProject"
+            />
+            <q-btn
               v-close-popup
               label="close"
               color="white"
               text-color="black"
               class="q-mr-lg"
             />
-            <q-btn v-close-popup label="create" color="primary" />
+            <q-btn
+              v-if="isNew === true"
+              label="create"
+              color="primary"
+              @click="createProject"
+            />
+            <q-btn
+              v-if="isNew === false"
+              label="update"
+              color="primary"
+              @click="updateProject"
+            />
           </div>
         </div>
       </div>

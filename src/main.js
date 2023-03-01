@@ -5,9 +5,11 @@ import store from './store';
 import axios from 'axios';
 
 import './quasar';
+import api from "./shared/api.json";
 
 Vue.prototype.$axios = axios;
-Vue.config.productionTip = false
+Vue.config.productionTip = false;
+Vue.prototype.$api = api;
 
 //ECharts 全局
 import * as echarts from 'echarts'
@@ -24,6 +26,8 @@ mapInit(Highcharts);
 Highcharts.maps["myMapName"] = mapData;
 
 Vue.use(HighchartsVue);
+
+axios.defaults.headers.common['Access-Control-Allow-Origin'] = '*'
 
 
 new Vue({
