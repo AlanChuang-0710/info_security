@@ -4,10 +4,27 @@ export default {
 
   components: {},
 
+  provide() {
+    return {
+      reloadPage: this.reloadPage,
+    };
+  },
+
   data() {
     return {
       leftDrawerOpen: false,
+      // 重新整理頁面
+      isRouterAlive: true,
     };
+  },
+  methods: {
+    reloadPage() {
+      console.log("reloadPage occure");
+      this.isRouterAlive = false;
+      this.$nextTick(() => {
+        this.isRouterAlive = true;
+      });
+    },
   },
 };
 </script>
@@ -146,8 +163,8 @@ export default {
       </q-list>
     </q-drawer>
 
-    <q-page-container class="">
-      <router-view />
+    <q-page-container>
+      <router-view v-if="isRouterAlive" />
     </q-page-container>
   </q-layout>
 </template>

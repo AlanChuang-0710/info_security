@@ -16,7 +16,17 @@ const routes = [
       {path: '/Dashboard3',name: 'Dashboard3', component: () => import('@/views/Dashboard3.vue')},
       {path: '/Dashboard4',name: 'Dashboard4', component: () => import('@/views/Dashboard4.vue')},
       {path: '/Dashboard5',name: 'Dashboard5', component: () => import('@/views/Dashboard5.vue')},
-      {path: '/ProjectList',name: 'ProjectList', component: () => import('@/views/portfolio/projects/ProjectList.vue')},
+      {
+        path: '/ProjectList',
+        name: 'ProjectList', 
+        component: () => import('@/views/portfolio/projects/ProjectList.vue')
+      },
+      {
+        path: '/ProjectList/:uuid',
+        name: 'ProjectUpload BOMInfo',
+        props: true,
+        component: () => import('@/views/portfolio/projects/ProjectInfo.vue'),
+      },
       {
         path: '/Vulnerabilities',
         name: 'Vulnerabilities',
