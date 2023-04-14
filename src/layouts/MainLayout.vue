@@ -29,19 +29,11 @@ export default {
 };
 </script>
 
-
 <template>
   <q-layout view="lHh Lpr lFf">
     <q-header elevated>
       <q-toolbar>
-        <q-btn
-          flat
-          dense
-          round
-          @click="leftDrawerOpen = !leftDrawerOpen"
-          icon="menu"
-          aria-label="Menu"
-        />
+        <q-btn flat dense round @click="leftDrawerOpen = !leftDrawerOpen" icon="menu" aria-label="Menu" />
         <q-toolbar-title> </q-toolbar-title>
         <q-space />
         <div class="q-gutter-sm row items-center no-wrap">
@@ -66,13 +58,7 @@ export default {
               <q-list style="min-width: 100px">
                 <messages></messages>
                 <q-card class="text-center no-shadow no-border">
-                  <q-btn
-                    label="View All"
-                    style="max-width: 120px !important"
-                    flat
-                    dense
-                    class="text-indigo-8"
-                  ></q-btn>
+                  <q-btn label="View All" style="max-width: 120px !important" flat dense class="text-indigo-8"></q-btn>
                 </q-card>
               </q-list>
             </q-menu>
@@ -86,12 +72,7 @@ export default {
       </q-toolbar>
     </q-header>
 
-    <q-drawer
-      v-model="leftDrawerOpen"
-      show-if-above
-      bordered
-      content-class="bg-primary text-white"
-    >
+    <q-drawer v-model="leftDrawerOpen" show-if-above bordered content-class="bg-primary text-white">
       <q-list>
         <!-- <q-item to="/Member" active-class="q-item-no-link-highlighting">
           <q-item-section avatar>
@@ -149,15 +130,20 @@ export default {
             <q-item-label>Project</q-item-label>
           </q-item-section>
         </q-item>
-        <q-item
-          to="/Vulnerabilities"
-          active-class="q-item-no-link-highlighting"
-        >
+        <q-item to="/Vulnerabilities" active-class="q-item-no-link-highlighting">
           <q-item-section avatar>
             <q-icon name="dashboard" />
           </q-item-section>
           <q-item-section>
             <q-item-label>Vulnerabilities</q-item-label>
+          </q-item-section>
+        </q-item>
+        <q-item to="/ProjectDetail" active-class="q-item-no-link-highlighting">
+          <q-item-section avatar>
+            <q-icon name="dashboard" />
+          </q-item-section>
+          <q-item-section>
+            <q-item-label>ProjectDetail</q-item-label>
           </q-item-section>
         </q-item>
       </q-list>
@@ -168,4 +154,3 @@ export default {
     </q-page-container>
   </q-layout>
 </template>
-

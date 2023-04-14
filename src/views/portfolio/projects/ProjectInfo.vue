@@ -390,9 +390,7 @@ export default {
       this.currentMedium = metric.medium ? metric.medium : 0;
       this.currentLow = metric.low ? metric.low : 0;
       this.currentUnassigned = metric.unassigned ? metric.unassigned : 0;
-      this.currentRiskScore = metric.inheritedRiskScore
-        ? metric.inheritedRiskScore
-        : 0;
+      this.currentRiskScore = metric.inheritedRiskScore ? metric.inheritedRiskScore : 0;
     },
     getData() {
       let PJ_uuid = this.uuid;
@@ -431,23 +429,19 @@ export default {
         .then((res) => {
           console.log("metricsUrl res =>", res);
           if (res.status === 200) {
-            this.pie_options_1.series[0].data[0].name =
-              res.data.critical.toString();
+            this.pie_options_1.series[0].data[0].name = res.data.critical.toString();
             this.pie_options_1.series[0].data[0].value = res.data.critical;
 
-            this.pie_options_2.series[0].data[0].name =
-              res.data.high.toString();
+            this.pie_options_2.series[0].data[0].name = res.data.high.toString();
             this.pie_options_2.series[0].data[0].value = res.data.high;
 
-            this.pie_options_3.series[0].data[0].name =
-              res.data.medium.toString();
+            this.pie_options_3.series[0].data[0].name = res.data.medium.toString();
             this.pie_options_3.series[0].data[0].value = res.data.medium;
 
             this.pie_options_4.series[0].data[0].name = res.data.low.toString();
             this.pie_options_4.series[0].data[0].value = res.data.low;
 
-            this.pie_options_5.series[0].data[0].name =
-              res.data.unassigned.toString();
+            this.pie_options_5.series[0].data[0].name = res.data.unassigned.toString();
             this.pie_options_5.series[0].data[0].value = res.data.unassigned;
 
             EventBus.$emit("callPieChartData", null);
@@ -585,10 +579,9 @@ export default {
   mounted() {
     this.getData();
     EventBus.$on("passComponentCount", (count) => {
-      console.log('count =====', count);
-      this.tabComponentsWCount = count
-    })
-
+      console.log("count =====", count);
+      this.tabComponentsWCount = count;
+    });
   },
 };
 </script>
@@ -661,19 +654,12 @@ export default {
         <q-tab name="overview" label="Overview" />
         <q-tab name="components" :label="`Components: ${tabComponentsWCount}`" />
       </q-tabs>
-      <q-tab-panels
-        v-model="tabPjInfo"
-        animated
-        style="background-color: rgb(54, 54, 54)"
-        keep-alive
-      >
+      <q-tab-panels v-model="tabPjInfo" animated style="background-color: rgb(54, 54, 54)" keep-alive>
         <q-tab-panel name="overview" class="q-pa-none">
           <div style="background: black" class="q-mb-md">
             <div class="q-pa-md">
               <div style="color: #fff">Project Vulnerabilities</div>
-              <small style="color: #fff"
-                >Last Measurement: 25 Oct 2022 at 10:28:49</small
-              >
+              <small style="color: #fff">Last Measurement: 25 Oct 2022 at 10:28:49</small>
             </div>
             <line-stack-chart
               name="lineStack1"
@@ -721,7 +707,6 @@ export default {
               </main>
             </div>
           </div>
-
           <div class="row justify-center items-start">
             <div class="col-6 q-mb-md" style="background: black">
               <div class="q-pa-md">
@@ -739,37 +724,20 @@ export default {
             <div class="col-6 q-mb-md" style="background: black">
               <div class="q-pa-md">
                 <div style="color: #fff">Policy Violations</div>
-                <small style="color: #fff"
-                  >Policy Violations by Classification</small
-                >
+                <small style="color: #fff">Policy Violations by Classification</small>
                 <!-- 控制高度對齊 -->
                 <main style="color: #eee; height: 300px" class="q-pt-md">
                   <div class="q-pb-md">
                     <div>Security Risk</div>
-                    <q-linear-progress
-                      rounded
-                      color="warning"
-                      size="8px"
-                      :value="pr_securityRisk"
-                    />
+                    <q-linear-progress rounded color="warning" size="8px" :value="pr_securityRisk" />
                   </div>
                   <div class="q-pb-md">
                     <div>License Risk</div>
-                    <q-linear-progress
-                      rounded
-                      color="warning"
-                      size="8px"
-                      :value="pr_licenseRisk"
-                    />
+                    <q-linear-progress rounded color="warning" size="8px" :value="pr_licenseRisk" />
                   </div>
                   <div class="q-pb-md">
                     <div>Operational Risk</div>
-                    <q-linear-progress
-                      rounded
-                      color="warning"
-                      size="8px"
-                      :value="pr_operationalRisk"
-                    />
+                    <q-linear-progress rounded color="warning" size="8px" :value="pr_operationalRisk" />
                   </div>
                 </main>
               </div>
@@ -800,16 +768,11 @@ export default {
             </div>
           </div>
         </q-tab-panel>
-        <q-tab-panel
-          name="components"
-          style="background-color: rgb(54, 54, 54); height: 100vh"
-          class="q-pa-none"
-        >
+        <q-tab-panel name="components" style="background-color: rgb(54, 54, 54); height: 100vh" class="q-pa-none">
           <table-component :uuid="uuid" />
         </q-tab-panel>
       </q-tab-panels>
     </div>
   </div>
 </template>
-<style lang="scss" scoped>
-</style>
+<style lang="scss" scoped></style>
